@@ -4,6 +4,7 @@ import java.sql.*;
 
 public class DatabaseConnection {
     private Connection conn;
+    String usname; String pass;
 
     public ResultSet getAll() throws SQLException {
         Statement stmt = conn.createStatement();
@@ -12,12 +13,12 @@ public class DatabaseConnection {
 
     public User getUser(String username, String password) throws SQLException {
         Statement stmt = conn.createStatement();
-        String sqlStr = "select * from example.accounts a where a.username=" +
-                username + " & a.password=" + password;
+        String sqlStr = "select * from Users where username=" +
+                username + " & password=" + password;
         ResultSet rs = stmt.executeQuery(sqlStr);
         if(rs.next())
             return new User(rs.getString("username"), rs.getString("password"),
-                rs.getString("access_role"));
+                rs.getString("user_role"));
         else return null;
     }
 
@@ -31,15 +32,15 @@ public class DatabaseConnection {
         }
     }
 
-    private class User {
+    public class User {
         String username;
         String password;
-        String accessRole;
+        String user_role;
 
-        public User(String username, String password, String accessRole) {
+        public User(String username, String password, String user_role) {
             this.username = username;
             this.password = password;
-            this.accessRole = accessRole;
+            this.user_role = user_role;
         }
 
         public String getUsername() {
@@ -58,12 +59,12 @@ public class DatabaseConnection {
             this.password = password;
         }
 
-        public String getAccessRole() {
-            return accessRole;
+        public String getuser_role() {
+            return user_role;
         }
 
-        public void setAccessRole(String accessRole) {
-            this.accessRole = accessRole;
+        public void setuser_role(String user_role) {
+            this.user_role = user_role;
         }
     }
 }

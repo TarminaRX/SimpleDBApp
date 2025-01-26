@@ -9,7 +9,9 @@ import java.sql.Statement;
 import java.util.*;
 
 public class Login implements ActionListener {
-    JFrame mFrame; TextField t1, t2; JButton b1; 
+    JFrame mFrame; TextField t1, t2; JButton b1; JLabel messE;
+    private DatabaseConnection jdbc;
+    private int logCount;
 
     Login(){
         mFrame = new JFrame("User Login");
@@ -46,12 +48,31 @@ public class Login implements ActionListener {
     public void actionPerformed(ActionEvent e){
         String username = t1.getText();
         String password = t2.getText();
-        DatabaseConnection jdbc = new DatabaseConnection("root", "root", "test-sql.db");
+        jdbc = new DatabaseConnection("root", "root", "test-sql.db");
         try {
-            jdbc.getUser(username, password);
+            DatabaseConnection.User user = jdbc.getUser(username, password);
+            if(user != null){
+                logCount = 0;
+                openWindow(user);
+            } else{
+                logCount++;
+                if(logCount >= 3){
+                    JOptionPane.showMessageDialog(mFrame, "Too many failed login attempts");
+                    System.exit(0);
+                }
+                messE.setText("Invalid Username or Password. Attempts Left: " + logCount);
+            }
         } catch (SQLException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
+            messE.setText("Database connection failed" + e1.getMessage());
+        }
+    }
+
+    public void openWindow(DatabaseConnection.User user){
+        if ("admin".equals(user.getuser_role())){
+            new Admin();
+        }
+        else{
+            new Guest();
         }
     }
 }
