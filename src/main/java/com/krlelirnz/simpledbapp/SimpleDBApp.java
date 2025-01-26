@@ -22,8 +22,8 @@ public class SimpleDBApp {
         //     }
         // } catch (SQLException e) {
         //     System.err.println(e.toString());
+        //     System.err.println("");
         // }
-        // System.out.println("Hello World!");
         //  System.out.println("Working Directory = " + System.getProperty("user.dir"));
         
         Login log = new Login();
