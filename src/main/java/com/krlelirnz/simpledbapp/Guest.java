@@ -11,7 +11,7 @@ public class Guest implements ActionListener{
     public static Panel mainPanel, p1, p2;
     public static Button logoutButton;
 
-    Guest(){
+    Guest(String username){
         jFrame = new JFrame("Guest ");
         jFrame.setSize(500,500);
         jFrame.setVisible(true);
@@ -21,7 +21,7 @@ public class Guest implements ActionListener{
 
         mainPanel = new Panel(new GridLayout(2,1));
         p1 = new Panel();
-        p1.add(new Label("Welcome Guest User!"));
+        p1.add(new Label("Welcome Guest " + username + "!"));
 
         p2 = new Panel();
         logoutButton = new Button("LogOut");

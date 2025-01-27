@@ -3,13 +3,12 @@ package com.krlelirnz.simpledbapp;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.Connection;
 import java.sql.SQLException;
 
 public class Login implements ActionListener {
     JFrame mFrame; JTextField t1; JButton b1; JLabel messE; JPasswordField p1;
-    DatabaseConnection jdbc; Connection conn;
-    private int logCount; String uname; String passw; String urole;
+    DatabaseConnection jdbc;
+    private int logCount; String username; String password;
 
     Login(){
         jdbc = new DatabaseConnection("test-sql.db");
@@ -55,8 +54,8 @@ public class Login implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e){
-        String username = t1.getText();
-        String password = new String(p1.getPassword());
+        username = t1.getText();
+        password = new String(p1.getPassword());
         try {
             logCount = 0;
             DatabaseConnection.User user = jdbc.getUser(username, password);
@@ -77,7 +76,7 @@ public class Login implements ActionListener {
             new Admin(); mFrame.dispose();
         }
         else{
-            new Guest(); mFrame.dispose();
+            new Guest(username); mFrame.dispose();
         }
     }
 }
