@@ -1,2 +1,3 @@
 run.sh
 target/
+dependency-reduced-pom.xml
