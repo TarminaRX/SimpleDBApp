@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.*;
 
 public class Login implements ActionListener {
     JFrame mFrame; JTextField t1; JButton b1; JLabel messE; JPasswordField p1;
@@ -16,8 +15,9 @@ public class Login implements ActionListener {
         jdbc = new DatabaseConnection("test-sql.db");
         mFrame = new JFrame("User Login");
         mFrame.setVisible(true);
-        mFrame.setSize(300, 180);
+        mFrame.setSize(320, 180);
         mFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mFrame.setLocationRelativeTo(null);
         mFrame.setResizable(true);
 
         Panel mainP = new Panel();
@@ -74,10 +74,10 @@ public class Login implements ActionListener {
 
     public void openWindow(DatabaseConnection.User user){
         if ("admin".equals(user.getuser_role())){
-            new Admin();
+            new Admin(); mFrame.dispose();
         }
         else{
-            new Guest();
+            new Guest(); mFrame.dispose();
         }
     }
 }

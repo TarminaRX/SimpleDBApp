@@ -2,10 +2,10 @@ package com.krlelirnz.simpledbapp;
 import java.awt.*;
 import javax.swing.*;
 
-
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Admin{
+public class Admin implements ActionListener{
         public static JFrame jFrame;
         public static Panel mainPanel, p1, p2, p3;
         public static Button logoutButton;
@@ -15,6 +15,7 @@ public class Admin{
         jFrame.setSize(500,500);
         jFrame.setResizable(false);
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jFrame.setLocationRelativeTo(null);
        
 
         mainPanel = new Panel(new GridLayout(3,1));
@@ -31,20 +32,17 @@ public class Admin{
         p3 = new Panel();
         logoutButton = new Button("LogOut");
         p3.add(logoutButton);
+        logoutButton.addActionListener(this);
 
 
         mainPanel.add(p1);
         mainPanel.add(p2);
         mainPanel.add(p3);
         jFrame.add(mainPanel);
-
-        /** ActionListener logout = (ActionEvent) -> {
-            
-        }
-
-        logoutButton.addActionListener(logout);
-        
-        */
         jFrame.setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e){
+        new Login(); jFrame.dispose();
     }
 }
