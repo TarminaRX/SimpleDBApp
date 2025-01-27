@@ -3,6 +3,7 @@ package com.krlelirnz.simpledbapp;
 import java.sql.*;
 
 public class DatabaseConnection {
+    public static Object User;
     private Connection conn;
     String usname; String pass;
 
@@ -13,16 +14,14 @@ public class DatabaseConnection {
 
     public User getUser(String username, String password) throws SQLException {
         Statement stmt = conn.createStatement();
-        String sqlStr = "select * from Users where username=" +
-                username + " & password=" + password;
-        ResultSet rs = stmt.executeQuery(sqlStr);
+        ResultSet rs = stmt.executeQuery("select * from Users where username = \"" + username + "\" AND password = " + password);
         if(rs.next())
             return new User(rs.getString("username"), rs.getString("password"),
                 rs.getString("user_role"));
         else return null;
     }
 
-    public DatabaseConnection(String username, String password, String database) {
+    public DatabaseConnection(String database) {
         String connStr = "jdbc:sqlite:resources/" + database;
         try {
             conn = DriverManager.getConnection(connStr);
