@@ -9,7 +9,7 @@ public class Admin{
         public static JFrame jFrame;
         public static Panel mainPanel, p1, p2, p3;
         public static Button logoutButton;
-        
+        //hi po
     Admin(){
         jFrame = new JFrame("Admin");
         jFrame.setSize(500,500);
