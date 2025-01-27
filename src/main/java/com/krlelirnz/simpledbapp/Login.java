@@ -78,6 +78,7 @@ public class Login implements ActionListener {
       //System.out.println(e1.toString());
       logCount++;
       if (logCount >= 3) {
+        mFrame.dispose();
         JOptionPane.showMessageDialog(mFrame, "Too many failed login attempts");
         System.exit(0);
       } else {
