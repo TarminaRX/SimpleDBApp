@@ -42,7 +42,7 @@ public class Login implements ActionListener {
         bton.add(b1);
         b1.addActionListener(this);
 
-        mainP.add(secPanel); mainP.add(bton);
+        mainP.add(secPanel); mainP.add(bton); mainP.add(messE);
         mFrame.add(mainP);
     }
     public void actionPerformed(ActionEvent e){
