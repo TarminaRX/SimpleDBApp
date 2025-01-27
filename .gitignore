@@ -1,2 +1,8 @@
+<<<<<<< HEAD
 run.sh
 target/
+=======
+run.sh
+target/
+dependency-reduced-pom.xml
+>>>>>>> bcbeaabcc36595d02cef48c98e0cc9c3faa58e0c
