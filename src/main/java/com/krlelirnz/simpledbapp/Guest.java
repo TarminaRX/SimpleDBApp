@@ -42,10 +42,6 @@ public class Guest implements ActionListener{
 
     }
 
-    public void actionPerformed(ActiveEvent e){
-
-    }
-
     public void actionPerformed(ActionEvent e) {
         new Login(); jFrame.dispose();
     }
