@@ -5,7 +5,6 @@ import java.awt.Label;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -30,7 +29,7 @@ public class Login implements ActionListener {
     mFrame.setSize(320, 180);
     mFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     mFrame.setLocationRelativeTo(null);
-    mFrame.setResizable(true);
+    mFrame.setResizable(false);
 
     Panel mainP = new Panel();
     Panel secPanel = new Panel(new GridLayout(2, 2));
@@ -75,7 +74,8 @@ public class Login implements ActionListener {
     try {
       DatabaseConnection.User user = jdbc.getUser(username, password);
       openWindow(user);
-    } catch (SQLException e1) {
+    } catch (Exception e1) {
+      //System.out.println(e1.toString());
       logCount++;
       if (logCount >= 3) {
         JOptionPane.showMessageDialog(mFrame, "Too many failed login attempts");
@@ -89,11 +89,11 @@ public class Login implements ActionListener {
 
   public void openWindow(DatabaseConnection.User user) {
     if ("admin".equals(user.getuser_role())) {
-      new Admin();
       mFrame.dispose();
+      new Admin(jdbc);
     } else {
-      new Guest(username);
       mFrame.dispose();
+      new Guest(username);
     }
   }
 }

@@ -1,61 +1,75 @@
 package com.krlelirnz.simpledbapp;
-import java.awt.*;
-import javax.swing.*;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.*;
 
+public class Admin implements ActionListener {
+  public static JFrame jFrame;
+  public static Panel mainPanel, p1, p2, p3;
+  public static Button logoutButton;
+  DatabaseConnection jdbc;
 
-public class Admin implements ActionListener{
-        public static JFrame jFrame;
-        public static Panel mainPanel, p1, p2, p3;
-        public static Button logoutButton;
-        DatabaseConnection jdbc;
-  
-    Admin(){
-        jdbc = new DatabaseConnection("test-sql.db");
-        jFrame = new JFrame("Admin");
-        jFrame.setSize(500,500);
-        jFrame.setResizable(false);
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jFrame.setLocationRelativeTo(null);
-       
+  Admin(DatabaseConnection dbc) {
+    jdbc = dbc;
+    jFrame = new JFrame("Admin");
+    jFrame.setSize(500, 300);
+    jFrame.setResizable(false);
+    jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    jFrame.setLocationRelativeTo(null);
 
-        mainPanel = new Panel(new GridLayout(3,1));
-        p1 = new Panel();
-        p1.add(new Label("Welcome Admin User!"));
-        
-        p2 = new Panel();
-        p2.add(new Label("List of Users:"));
-       
-        try{
-            DefaultListModel<String> uName = new DefaultListModel<>();
-            ResultSet rs = jdbc.getAll();
-            while(rs.next()){
-                uName.addElement(rs.getString("username"));
-            }
-            JList<String> usersList = new JList<String>(uName);
-            JScrollPane userList = new JScrollPane(usersList);
-            p2.add(userList);
-        }catch(SQLException e){
-            System.out.println(e.getMessage());
-        }
+    mainPanel = new Panel(new BorderLayout());
+    Panel outp1 = new Panel(new GridLayout(2,1));
+    p1 = new Panel();
+    p1.add(new Label("Welcome Admin User!"));
+    outp1.add(p1);
+    outp1.add(new Panel());
 
-        p3 = new Panel();
-        logoutButton = new Button("LogOut");
-        p3.add(logoutButton);
-        logoutButton.addActionListener(this);
+    //Panel outp2 = new Panel(new GridLayout(3, 1));
+    //outp2.add(new Panel());
 
-        mainPanel.add(p1);
-        mainPanel.add(p2);
-        mainPanel.add(p3);
-        jFrame.add(mainPanel);
-        jFrame.setVisible(true);
+    p2 = new Panel(new GridLayout(1, 4));
+    p2.add(new Panel());
+    p2.add(new Label("List of Users:"));
+
+    try {
+      DefaultListModel<String> uName = new DefaultListModel<>();
+      ResultSet rs = jdbc.getAll();
+      JList<String> usersList = new JList<String>();
+      JScrollPane userList = new JScrollPane(usersList);
+      while (rs.next()) {
+        usersList.setModel(uName);
+        uName.addElement(rs.getString("username"));
+      }
+      p2.add(userList);
+      p2.add(new Panel());
+      //outp2.add(p2);
+      //outp2.add(new Panel());
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
     }
 
-    public void actionPerformed(ActionEvent e){
-        new Login(); jFrame.dispose();
-    }
+    Panel outp3 = new Panel(new GridLayout(3, 1));
+    outp3.add(new Panel());
+    p3 = new Panel();
+    logoutButton = new Button("LogOut");
+    p3.add(logoutButton);
+    logoutButton.addActionListener(this);
+    outp3.add(p3);
+    outp3.add(new Panel());
+
+    mainPanel.add(outp1, BorderLayout.NORTH);
+    mainPanel.add(p2, BorderLayout.CENTER);
+    mainPanel.add(outp3, BorderLayout.SOUTH);
+    jFrame.add(mainPanel);
+    jFrame.setVisible(true);
+  }
+
+  public void actionPerformed(ActionEvent e) {
+    jFrame.dispose();
+    new Login();
+  }
 }

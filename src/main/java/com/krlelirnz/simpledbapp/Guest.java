@@ -13,13 +13,14 @@ public class Guest implements ActionListener{
 
     Guest(String username){
         jFrame = new JFrame("Guest ");
-        jFrame.setSize(500,500);
+        jFrame.setSize(500,300);
         jFrame.setVisible(true);
         jFrame.setResizable(false);
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setLocationRelativeTo(null);
 
-        mainPanel = new Panel(new GridLayout(2,1));
+        mainPanel = new Panel(new GridLayout(3,1));
+        Panel outerPanel = new Panel(new GridLayout(3,1));
         p1 = new Panel();
         p1.add(new Label("Welcome Guest " + username + "!"));
 
@@ -28,8 +29,13 @@ public class Guest implements ActionListener{
         p2.add(logoutButton);
         logoutButton.addActionListener(this);
         
-        mainPanel.add(p1);
-        mainPanel.add(p2);
+        outerPanel.add(p1);
+        outerPanel.add(p2);
+
+        mainPanel.add(new Panel());
+        mainPanel.add(outerPanel);
+        mainPanel.add(new Panel());
+        
 
         jFrame.add(mainPanel);
 
