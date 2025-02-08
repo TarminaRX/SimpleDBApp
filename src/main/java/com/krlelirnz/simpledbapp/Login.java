@@ -24,7 +24,7 @@ public class Login implements ActionListener {
   private int logCount = 0;
 
   Login() {
-    jdbc = new DatabaseConnection("test-sql.db");
+    jdbc = new DatabaseConnection("AccountsDB.db");
     mFrame = new JFrame("User Login");
     mFrame.setSize(320, 180);
     mFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
